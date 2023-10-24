@@ -101,12 +101,15 @@ def tratarErro(inputTratamento='',tipo=''):
             # Se o tipo a ser tratado for string
             if not isinstance(inputTratamento, str):
                 raise ValueError
-
-        
+            elif inputTratamento.isdigit():
+                raise ValueError
+             
         elif tipo == 'int':
             # Se o tipo a ser tratado for inteiro
             if not inputTratamento.isdigit():
                 raise ValueError
+            else:
+                return int(inputTratamento)
 
         else:
             # Se o tipo a ser tratado for diferente de string ou int
@@ -202,7 +205,7 @@ while lig == 1:
         resp = input('\nSelecione uma opção: ')
         subli('Selecione uma opção: ', resp)
 
-        tratarErro(resp, 'int')
+        resp = tratarErro(resp, 'int')
 
         sleep(1)
         # Verificação da escolha do Menu Principal
@@ -255,7 +258,7 @@ while lig == 1:
                 duvida = input('\nQual é o número da sua dúvida? ')
                 subli('Qual é o número da sua dúvida? ', duvida)
 
-                tratarErro(duvida, 'int')
+                duvida = tratarErro(duvida, 'int')
 
                 print()
 
@@ -300,38 +303,56 @@ while lig == 1:
                     print('\033[m')
                     print()
         elif resp == 3: # Menu sugestões
-            menu = 3 # para menu ser Sugestões
-            menus.append(menu) # adicionar menu na lista para listar operação do usuário no fim do programa 
-            # Mensagem de carregando menu
-            carregandoMenu('Sugestões')
-            # Formatação menu
-            print()
-            linSimples(tam_titulo)  
-            frase = len('Envie uma sugestão ou relate um bug :)')
-            tam_sug = ((tam_titulo - frase ) // 2)
-            print(f'\n{"SUGESTÕES":^{tam_titulo}}\n')    
-            print(' ' * (tam_sug - 3), '-' * (frase + 6))
-            print(' ' * tam_sug, f'{"Envie uma sugestão ou relate um bug :)":^{tam_sug}}')
-            print(' ' * (tam_sug - 3), '-' * (frase + 6))       
-            print('\n')
-            linSimples(tam_titulo)  
-            menuSairVoltar()
-            sug = input('\nDigite a sua sugestão: ')
-            subli('Digite a sua sugestão: ', sug)
+            while True:
+                menu = 3 # para menu ser Sugestões
+                menus.append(menu) # adicionar menu na lista para listar operação do usuário no fim do programa 
+                # Mensagem de carregando menu
+                carregandoMenu('Sugestões')
+                # Formatação menu
+                print()
+                linSimples(tam_titulo)  
+                frase = len('Envie uma sugestão ou relate um bug :)')
+                tam_sug = ((tam_titulo - frase ) // 2)
+                print(f'\n{"SUGESTÕES":^{tam_titulo}}\n')    
+                print(' ' * (tam_sug - 3), '-' * (frase + 6))
+                print(' ' * tam_sug, f'{"Envie uma sugestão ou relate um bug :)":^{tam_sug}}')
+                print(' ' * (tam_sug - 3), '-' * (frase + 6))       
+                print('\n')
+                linSimples(tam_titulo)  
+                menuSairVoltar()
+                sug = input('\nDigite a sua sugestão: ')
+                subli('Digite a sua sugestão: ', sug)
 
-            tratarErro(sug, 'str')
+                tratarErro(sug, 'str')
 
-            # Verificando se a sugestão não é 999 ou 888
-            if sug == '888':
-                menus.append(888) # adicionar menu na lista para listar operação do usuário no fim do programa 
-                voltandoMenu('Principal')                
-            elif sug == '999':
-                fechar = 0
-                menus.append(999) # adicionar menu na lista para listar operação do usuário no fim do programa 
-            # Confirmação do envio da sugestão
-            else:
-                sleep(0.4)
-                print(f'\n\nA sugestão "{sug}" foi enviada com sucesso!')
+                if sug.isdigit():
+                    # Verificando se a sugestão não é 999 ou 888
+                    if sug == '888':
+                        menus.append(888) # adicionar menu na lista para listar operação do usuário no fim do programa 
+                        voltandoMenu('Principal')                
+                        break
+                    elif sug == '999':
+                        fechar = 0
+                        menus.append(999) # adicionar menu na lista para listar operação do usuário no fim do programa 
+                        break
+                    else:
+                        print('\033[31m', '\n\nO valor digitado precisa ser alfabético! Digite novamente.')
+                        subli('O valor digitado precisa ser alfabético! Digite novamente.', 0)
+                        print('\033[m', end='')
+
+                # Confirmação do envio da sugestão
+                else:
+                    verificar_sug = sug.replace(' ', '') # verificar se é vazia
+                    if len(verificar_sug) == 0:
+                        print('\033[31m', 'O valor digitado não pode ser vazio! Digite novamente.')
+                        subli('O valor digitado não pode ser vazio! Digite novamente.', 0)
+                        print('\033[m')
+                    else:
+                        sleep(1)
+                        print(f'\n\n\033[32mA sugestão "{sug}" foi enviada com sucesso!\033[m')
+                        sleep(1)
+                        break
+
         elif resp == 4: # Menu Verificar lixeiras
             while True:
                 menu = 4
@@ -358,7 +379,7 @@ while lig == 1:
                 escolha_lixeira = input('\nQual lixeira você deseja verificar? ')
                 subli('Qual lixeira você deseja verificar? ', escolha_lixeira)
 
-                tratarErro(escolha_lixeira, 'int')
+                escolha_lixeira = tratarErro(escolha_lixeira, 'int')
 
                 print()
 
@@ -390,6 +411,7 @@ while lig == 1:
             menus.append(999) # adicionar menu na lista para listar operação do usuário no fim do programa 
             fechar = 0
             perg = 0
+        
         else: # Se digitar um outro número (não é tratamento de erro)
             print('\033[31m', f'\n\nA Opção "{resp}" não é válida. Por favor, digite uma opção válida.')
             subli(f'A Opção "{resp}" não é válida. Por favor, digite uma opção válida.', 0)
@@ -456,7 +478,7 @@ while lig == 1:
         perg = input('\nOpção: ')
         subli('Opção: ', perg)
 
-        tratarErro(perg, 'int')
+        perg = tratarErro(perg, 'int')
 
         # Verificação do input
         if perg == 1:

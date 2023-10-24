@@ -1,1 +1,0 @@
-print(f'{"ejmofwef":^50}')
