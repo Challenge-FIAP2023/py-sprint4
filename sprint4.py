@@ -101,6 +101,8 @@ def tratarErro(inputTratamento='',tipo=''):
             # Se o tipo a ser tratado for string
             if not isinstance(inputTratamento, str):
                 raise ValueError
+            elif inputTratamento != 888 or inputTratamento != 999:
+                pass
             elif inputTratamento.isdigit():
                 raise ValueError
              
@@ -344,7 +346,7 @@ while lig == 1:
                 else:
                     verificar_sug = sug.replace(' ', '') # verificar se é vazia
                     if len(verificar_sug) == 0:
-                        print('\033[31m', 'O valor digitado não pode ser vazio! Digite novamente.')
+                        print('\033[31m', '\n\nO valor digitado não pode ser vazio! Digite novamente.')
                         subli('O valor digitado não pode ser vazio! Digite novamente.', 0)
                         print('\033[m')
                     else:
