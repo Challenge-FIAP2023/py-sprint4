@@ -1,5 +1,6 @@
 from time import sleep
 from random import randint
+import json
 
 # Função para definir o tamanho do programa no printdo terminal
 def tamProg(titulo='Aplicativo SmartTrash'):
@@ -130,45 +131,26 @@ fechar = lig = 1 # Programa ligado (binário)
 menus = []
 nomes_lixeiras = ['Lixeira A', 'Lixeira B', 'Lixeira C']
 
-lixeiras = {
-    'lixeira1': {
-        'ID': '101',
-        'Localização': 'Rua A, Número 123',
-        'Coleta': '',
-        'Enchimento (%)': 0,
-        'Última coleta': '01-09-2023 10:30:00',
-        'Equipe responsável': 'Equipe A'
-    },
-    'lixeira2': {
-        'ID': '202',
-        'Localização': 'Rua B, Número 456',
-        'Coleta': '',
-        'Enchimento (%)': 0,
-        'Última coleta': '29-08-2023 15:45:00',
-        'Equipe responsável': 'Equipe H'
-    },
-    'lixeira3': {
-        'ID': '303',
-        'Localização': 'Rua C, Número 789',
-        'Coleta': '',
-        'Enchimento (%)': 0,
-        'Última coleta': '03-09-2023 09:15:00',
-        'Equipe responsável': 'Equipe A'
-    }
-}
-
 while lig == 1:
 
     # Simulação dos sensores 
-    for k in lixeiras:
+
+    with open("lixeiras.json", "r") as lixeiras_json:
+        dados_lixeiras = json.load(lixeiras_json)
+
+    for keys in dados_lixeiras:
         sensor_enchimento = randint(0, 100)
-        lixeiras[k].update({'Enchimento (%)':sensor_enchimento})
+        dados_lixeiras[keys].update({'Enchimento (%)':sensor_enchimento})
         if sensor_enchimento < 50:
-            lixeiras[k].update({'Coleta':'Concluída'})
+            dados_lixeiras[keys].update({'Coleta':'Concluida'})
         elif sensor_enchimento >= 50 and sensor_enchimento < 75:
-            lixeiras[k].update({'Coleta':'Pendente'})
+            dados_lixeiras[keys].update({'Coleta':'Pendente'})
         else:
-            lixeiras[k].update({'Coleta':'Em andamento'})
+            dados_lixeiras[keys].update({'Coleta':'Em andamento'})
+
+
+    with open("lixeiras.json", "w") as lixeiras_json:
+        json.dump(dados_lixeiras, lixeiras_json)
 
 
     # Loop programa principal
