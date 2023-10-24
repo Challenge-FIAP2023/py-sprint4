@@ -1,6 +1,10 @@
 from time import sleep
 from random import randint
 
+# Função para definir o tamanho do programa no printdo terminal
+def tamProg(titulo='Aplicativo SmartTrash'):
+    return len(titulo) * 3 # armazenando em uma variável o tamanho do título para formatação do menu
+
 # Função de linha simples para estética
 def linSimples(tam):
     print('-' * tam)
@@ -12,6 +16,7 @@ def linDetalhe(tam):
 # Função de sublinhado para estética
 def subli(frase, variavel):
     linSimples(len(frase + str(variavel)))
+    sleep(1)
 
 # Função para mostrar opcão para sair do aplicativo e para voltar ao Menu Principal
 def menuSairVoltar():
@@ -68,8 +73,11 @@ def continuar():
         print(' ' * (tam_continuar - 3), '~' * (frase + 6))
         print() 
         sleep(0.5)
-        continuar = int(input('\nSelecione uma opção: '))
+        continuar = input('\nSelecione uma opção: ')
         subli('Selecione uma opção: ', continuar)
+
+        tratarErro(continuar, 'int')
+
         if continuar == 888:
             menus.append(continuar) # adicionar menu na lista para listar operação do usuário no fim do programa
             voltandoMenu('Principal')
@@ -79,6 +87,35 @@ def continuar():
             return 0
         else:
             print(f'Opção {continuar} inválida. Por favor, tente novamente')
+
+def tratarErro(inputTratamento='',tipo=''):
+    '''
+    Função para tratar erros:
+    - Inteiro
+    - String
+    :param inputTratamento: Frase do sistema para o usuário
+    :param tipo: Tipo string "str" ou tipo inteiro "int"
+    '''
+    try:
+        if tipo == 'str':
+            # Se o tipo a ser tratado for string
+            if not isinstance(inputTratamento, str):
+                raise ValueError
+
+        
+        elif tipo == 'int':
+            # Se o tipo a ser tratado for inteiro
+            if not inputTratamento.isdigit():
+                raise ValueError
+
+        else:
+            # Se o tipo a ser tratado for diferente de string ou int
+            raise ValueError
+
+    except Exception:
+        print()
+        print()
+        print('\033[31m', f"{'#~~~~~~~~~~~~~~~~~~~~~# ERRO #~~~~~~~~~~~~~~~~~~~~~#':^{tamProg()}}", '\033[m')
 
 
 # ------------- Programa principal --------------
@@ -133,13 +170,13 @@ while lig == 1:
     while fechar == 1:
         menus.append(menu) # adicionar menu na lista para listar operação do usuário no fim do programa 
         # Menu Principal
-        titulo = 'Aplicativo SmartTrash'
-        tam_titulo = len(titulo) * 3 # armazenando em uma variável o tamanho do título para formatação do menu
+
+        tam_titulo = tamProg()
 
         # Print do título
         print()
         linDetalhe(tam_titulo // 2)
-        print(f'\n{titulo:^{tam_titulo}}\n')
+        print(f'\n{"Aplicativo SmartTrash":^{tam_titulo}}\n')
         linDetalhe(tam_titulo // 2)
         print()
 
@@ -162,8 +199,11 @@ while lig == 1:
         menuSairVoltar()
 
         # Input do usuário  -->  verificação de erro
-        resp = int(input('\nSelecione uma opção: '))
+        resp = input('\nSelecione uma opção: ')
         subli('Selecione uma opção: ', resp)
+
+        tratarErro(resp, 'int')
+
         sleep(1)
         # Verificação da escolha do Menu Principal
         if resp == 1: # Menu notificações
@@ -212,8 +252,11 @@ while lig == 1:
                 menuSairVoltar()
 
                 # input do usuário
-                duvida = int(input('\nQual é o número da sua dúvida? '))
+                duvida = input('\nQual é o número da sua dúvida? ')
                 subli('Qual é o número da sua dúvida? ', duvida)
+
+                tratarErro(duvida, 'int')
+
                 print()
 
                 if 6 >= duvida and duvida >= 1:
@@ -252,8 +295,9 @@ while lig == 1:
                     menus.append(999) # adicionar menu na lista para listar operação do usuário no fim do programa
                     break
                 else: # Opção diferente das opções apresentadas
-                    print(f'\nERRO! A Opção "{duvida}" não é válida. Por favor, digite uma opção válida.')
-                    subli(f'ERRO! A Opção "{duvida}" não é válida. Por favor, digite uma opção válida.', 0)
+                    print('\033[31m', f'\n\nA Opção "{duvida}" não é válida. Por favor, digite uma opção válida.')
+                    subli(f'A Opção "{duvida}" não é válida. Por favor, digite uma opção válida.', 0)
+                    print('\033[m')
                     print()
         elif resp == 3: # Menu sugestões
             menu = 3 # para menu ser Sugestões
@@ -274,6 +318,8 @@ while lig == 1:
             menuSairVoltar()
             sug = input('\nDigite a sua sugestão: ')
             subli('Digite a sua sugestão: ', sug)
+
+            tratarErro(sug, 'str')
 
             # Verificando se a sugestão não é 999 ou 888
             if sug == '888':
@@ -309,8 +355,11 @@ while lig == 1:
                 menuSairVoltar()
 
                 # input do usuário
-                escolha_lixeira = int(input('\nQual lixeira você deseja verificar? '))
+                escolha_lixeira = input('\nQual lixeira você deseja verificar? ')
                 subli('Qual lixeira você deseja verificar? ', escolha_lixeira)
+
+                tratarErro(escolha_lixeira, 'int')
+
                 print()
 
                 if 3 >= escolha_lixeira and escolha_lixeira >= 1:
@@ -332,8 +381,9 @@ while lig == 1:
                     menus.append(999) # adicionar menu na lista para listar operação do usuário no fim do programa
                     break
                 else: # Opção diferente das opções apresentadas
-                    print(f'\nERRO! A Opção "{escolha_lixeira}" não é válida. Por favor, digite uma opção válida.')
-                    subli(f'ERRO! A Opção "{escolha_lixeira}" não é válida. Por favor, digite uma opção válida.', 0)
+                    print('\033[31m', f'\n\nA Opção "{escolha_lixeira}" não é válida. Por favor, digite uma opção válida.')
+                    subli(f'A Opção "{escolha_lixeira}" não é válida. Por favor, digite uma opção válida.', 0)
+                    print('\033[m')
                     print()
 
         elif resp == 999: # Sair do aplicativo
@@ -341,9 +391,11 @@ while lig == 1:
             fechar = 0
             perg = 0
         else: # Se digitar um outro número (não é tratamento de erro)
-            print(f'\nERRO! A Opção "{resp}" não é válida. Por favor, digite uma opção válida.')
-            subli(f'ERRO! A Opção "{resp}" não é válida. Por favor, digite uma opção válida.', 0)
-        menu = 0 # para menu voltar a ser o Principal
+            print('\033[31m', f'\n\nA Opção "{resp}" não é válida. Por favor, digite uma opção válida.')
+            subli(f'A Opção "{resp}" não é válida. Por favor, digite uma opção válida.', 0)
+            print('\033[m')
+            print()
+    menu = 0 # para menu voltar a ser o Principal
     resp = 0
     
     # Loop para usuário decidir se quer sair ou ficar no programa
@@ -401,8 +453,10 @@ while lig == 1:
         print('~' * tam_titulo)
 
         # Input do usuário
-        perg = int(input('\nOpção: '))
+        perg = input('\nOpção: ')
         subli('Opção: ', perg)
+
+        tratarErro(perg, 'int')
 
         # Verificação do input
         if perg == 1:
@@ -411,8 +465,10 @@ while lig == 1:
         elif perg == 2: 
             lig = 0
         else:
-            print(f'\nERRO! A Opção "{perg}" não é válida. Por favor, digite uma opção válida.')
-            subli(f'ERRO! A Opção "{perg}" não é válida. Por favor, digite uma opção válida.', 0)
+            print('\033[31m', f'\n\nA Opção "{perg}" não é válida. Por favor, digite uma opção válida.')
+            subli(f'A Opção "{perg}" não é válida. Por favor, digite uma opção válida.', 0)
+            print('\033[m')
+            print()
             sleep(0.7)
 
 # Print final - Programa encerra

@@ -4,25 +4,22 @@ def tratarErro(inputTratamento='',tipo=''):
     - Inteiro
     - String
     :param inputTratamento: Frase do sistema para o usuário
-    :param tipo: Tipo string (1) ou tipo inteiro (2)  
+    :param tipo: Tipo string "str" ou tipo inteiro "int"
     '''
     try:
-
-        inputTratamento = bool(inputTratamento)
-        if tipo == 'string':
+        if tipo == 'str':
             # Se o tipo a ser tratado for string
-            if not int(inputTratamento):
-                print('string')
+            if not isinstance(inputTratamento, str):
+                raise ValueError("\033[31mErro! A entrada deve ser uma <string>.\033[m")
 
-            
-
+        
         elif tipo == 'int':
             # Se o tipo a ser tratado for inteiro
-            inputTratamento = int(inputTratamento)
-            print('inteiro')
+            if not inputTratamento.isdigit():
+                raise ValueError("\033[31mErro: A entrada deve ser um número inteiro.\033[m")
 
         else:
-            # Se o tipo a ser tratado for diferente de 1 e 2
+            # Se o tipo a ser tratado for diferente de string ou int
             raise ValueError("\033[31mTipo inválido:! O tipo deve ser <string> ou <int>.\033[m")
 
     except Exception as e:
@@ -49,5 +46,5 @@ Inputs que precisam de tratamento de erro
 
 
 n = input(': ')
-tratarErro(n, 'string')
+tratarErro(n, 'int')
 
