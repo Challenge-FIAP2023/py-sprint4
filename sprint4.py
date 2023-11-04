@@ -371,7 +371,7 @@ while lig == 1:
                     menus.append(escolha_lixeira + 40) # adicionar menu na lista para listar operação do usuário no fim do programa
                     linDetalhe(20)
                     print(f'\033[35m{nomes_lixeiras[escolha_lixeira-1]}\033[m:')
-                    for k, v in lixeiras[f'lixeira{escolha_lixeira}'].items():
+                    for k, v in dados_lixeiras[f'lixeira{escolha_lixeira}'].items():
                         sleep(1)
                         print(f'- \033[33m{k}\033[m: {v}')
                     linDetalhe(20)
