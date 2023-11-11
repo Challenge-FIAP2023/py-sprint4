@@ -58,34 +58,6 @@ def carregandoMenu(menu):
     linSimples(len(f'Carregando o Menu {menu}...'))
     print()
     sleep(0.5)
-
-# Função para verificar se o usuário quer voltar para o menu ou quer sair do aplicativo
-def continuar():
-    continuar = 0
-    while continuar != 888 and continuar != 999: 
-        frase = len('[888] - Você deseja voltar ao Menu Principal?')
-        tam_continuar = (tam_titulo - frase) // 2
-        sleep(0.5)
-        print()
-        print(' ' * (tam_continuar - 3), '~' * (frase + 6))
-        print()
-        print(' ' * (tam_continuar),'[888] - Você deseja voltar ao Menu Principal?')
-        print(' ' * (tam_continuar),'[999] - Você deseja sair do aplicativo?\n')
-        print(' ' * (tam_continuar - 3), '~' * (frase + 6))
-        print() 
-        sleep(0.5)
-        continuar = input('\nSelecione uma opção: ')
-        subli('Selecione uma opção: ', continuar)
-
-        tratarErro(continuar, 'int')
-
-        if continuar == 888:
-            menus.append(continuar) # adicionar menu na lista para listar operação do usuário no fim do programa
-            voltandoMenu('Principal')
-            return 1
-        elif continuar == 999:
-            menus.append(continuar) # adicionar menu na lista para listar operação do usuário no fim do programa
-            return 0
         
 def tratarErro(inputTratamento='',tipo=''):
     '''
@@ -209,9 +181,11 @@ while lig == 1:
             print(' ' * (tam_notif - 3), '~' * (frase + 6))
             print('\n')
             linSimples(tam_titulo)  
+
+            sleep(1)
             
-            if continuar() == 0:
-                fechar = 0
+            voltandoMenu('Principal') 
+
         elif resp == 2: # Menu ajuda
             while True:
                 menu = 2 # para menu ser Ajuda
