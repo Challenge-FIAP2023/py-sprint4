@@ -86,9 +86,7 @@ def continuar():
         elif continuar == 999:
             menus.append(continuar) # adicionar menu na lista para listar operação do usuário no fim do programa
             return 0
-        else:
-            print(f'Opção {continuar} inválida. Por favor, tente novamente')
-
+        
 def tratarErro(inputTratamento='',tipo=''):
     '''
     Função para tratar erros:
@@ -119,9 +117,11 @@ def tratarErro(inputTratamento='',tipo=''):
             raise ValueError
 
     except Exception:
-        print()
-        print()
-        print('\033[31m', f"{'#~~~~~~~~~~~~~~~~~~~~~# ERRO #~~~~~~~~~~~~~~~~~~~~~#':^{tamProg()}}", '\033[m')
+        print('\n')
+        print('\033[31m', f"{'#~~~~~~~~~~~~~~~~~~~# ERRO DE INPUT #~~~~~~~~~~~~~~~~~~~#':^{tamProg()}}")
+        print(f"{f'Opção {inputTratamento} inválida. Por favor, tente novamente':^{tamProg()}}", '\033[m')
+        sleep(0.7)
+        return inputTratamento
 
 
 # ------------- Programa principal --------------
@@ -246,46 +246,47 @@ while lig == 1:
 
                 print()
 
-                if 6 >= duvida and duvida >= 1:
-                    menus.append(duvida + 20) # adicionar menu na lista para listar operação do usuário no fim do programa
-                
-                if duvida == 1: # Opção 1 - Como funciona para descartar o lixo?
-                    print('\nVocê deve se direcionar até a lixeira inteligente, colocar o lixo no espaço destinado, esperar até que a lixeira analise o material e o separe adequadamente.') 
-                    sleep(2)
-                    voltandoMenu('Ajuda')
-                elif duvida == 2: # Opção 2 - Como funciona a coleta de lixo?
-                    print('A coleta de lixo é feita automaticamente por uma empresa de reciclagem quando a lixeira inteligente fica próxima de sua capacidade máxima.') 
-                    sleep(2)                    
-                    voltandoMenu('Ajuda')       
-                elif duvida == 3: # Opção 3 - Como posso enviar sugestões?
-                    print('\nPara enviar sugestões, você deve selecionar no menu principal a opção "[3] Enviar sugestões".') 
-                    sleep(2)  
-                    voltandoMenu('Ajuda')     
-                elif duvida == 4: # Opção 4 - Que tipo de lixo posso descartar na lixeira inteligente?
-                    print('\nVocê pode descartar o lixo desde que ele seja de: metal, plástico, papel ou vidro.') 
-                    sleep(2)      
-                    voltandoMenu('Ajuda') 
-                elif duvida == 5: # Opção 5 - Como a lixeira inteligente funciona?
-                    print('\nA lixeira inteligente separa o lixo automaticamente com sensores sem você precisar se preocupar com qual material ele é feito. Basta apenas colocar separadamente o lixo dentro da lixeira e ela se encarrega do resto!') 
-                    sleep(2)     
-                    voltandoMenu('Ajuda')  
-                elif duvida == 6: # Opção 6 - Desejo entrar em contato com o suporte.
-                    print('\nEnvie um email com a sua dúvida para: help@cleantech.com.br') 
-                    sleep(2)      
-                    voltandoMenu('Ajuda') 
-                elif duvida == 888: # Voltar ao menu principal
-                    menus.append(888) # adicionar menu na lista para listar operação do usuário no fim do programa
-                    voltandoMenu('Principal') 
-                    break
-                elif duvida == 999: # Sair do aplicativo
-                    fechar = 0
-                    menus.append(999) # adicionar menu na lista para listar operação do usuário no fim do programa
-                    break
-                else: # Opção diferente das opções apresentadas
-                    print('\033[31m', f'\n\nA Opção "{duvida}" não é válida. Por favor, digite uma opção válida.')
-                    subli(f'A Opção "{duvida}" não é válida. Por favor, digite uma opção válida.', 0)
-                    print('\033[m')
-                    print()
+                try:
+                    if 6 >= duvida and duvida >= 1:
+                        menus.append(duvida + 20) # adicionar menu na lista para listar operação do usuário no fim do programa
+                    
+                    if duvida == 1: # Opção 1 - Como funciona para descartar o lixo?
+                        print('\nVocê deve se direcionar até a lixeira inteligente, colocar o lixo no espaço destinado, esperar até que a lixeira analise o material e o separe adequadamente.') 
+                        sleep(2)
+                        voltandoMenu('Ajuda')
+                    elif duvida == 2: # Opção 2 - Como funciona a coleta de lixo?
+                        print('A coleta de lixo é feita automaticamente por uma empresa de reciclagem quando a lixeira inteligente fica próxima de sua capacidade máxima.') 
+                        sleep(2)                    
+                        voltandoMenu('Ajuda')       
+                    elif duvida == 3: # Opção 3 - Como posso enviar sugestões?
+                        print('\nPara enviar sugestões, você deve selecionar no menu principal a opção "[3] Enviar sugestões".') 
+                        sleep(2)  
+                        voltandoMenu('Ajuda')     
+                    elif duvida == 4: # Opção 4 - Que tipo de lixo posso descartar na lixeira inteligente?
+                        print('\nVocê pode descartar o lixo desde que ele seja de: metal, plástico, papel ou vidro.') 
+                        sleep(2)      
+                        voltandoMenu('Ajuda') 
+                    elif duvida == 5: # Opção 5 - Como a lixeira inteligente funciona?
+                        print('\nA lixeira inteligente separa o lixo automaticamente com sensores sem você precisar se preocupar com qual material ele é feito. Basta apenas colocar separadamente o lixo dentro da lixeira e ela se encarrega do resto!') 
+                        sleep(2)     
+                        voltandoMenu('Ajuda')  
+                    elif duvida == 6: # Opção 6 - Desejo entrar em contato com o suporte.
+                        print('\nEnvie um email com a sua dúvida para: help@cleantech.com.br') 
+                        sleep(2)      
+                        voltandoMenu('Ajuda') 
+                    elif duvida == 888: # Voltar ao menu principal
+                        menus.append(888) # adicionar menu na lista para listar operação do usuário no fim do programa
+                        voltandoMenu('Principal') 
+                        break
+                    elif duvida == 999: # Sair do aplicativo
+                        fechar = 0
+                        menus.append(999) # adicionar menu na lista para listar operação do usuário no fim do programa
+                        break
+                    else:
+                        tratarErro(duvida)
+                except:
+                    pass
+
         elif resp == 3: # Menu sugestões
             while True:
                 menu = 3 # para menu ser Sugestões
@@ -335,8 +336,8 @@ while lig == 1:
                         sleep(1)
                         print(f'\n\n\033[32mA sugestão "{sug}" foi enviada com sucesso!\033[m')
                         sleep(1)
+                        voltandoMenu('Principal')
                         break
-
         elif resp == 4: # Menu Verificar lixeiras
             while True:
                 menu = 4
@@ -367,40 +368,40 @@ while lig == 1:
 
                 print()
 
-                if 3 >= escolha_lixeira and escolha_lixeira >= 1:
-                    menus.append(escolha_lixeira + 40) # adicionar menu na lista para listar operação do usuário no fim do programa
-                    linDetalhe(20)
-                    print(f'\033[35m{nomes_lixeiras[escolha_lixeira-1]}\033[m:')
-                    for k, v in dados_lixeiras[f'lixeira{escolha_lixeira}'].items():
-                        sleep(1)
-                        print(f'- \033[33m{k}\033[m: {v}')
-                    linDetalhe(20)
-                    sleep(4)
+                try:
+                    if int(escolha_lixeira):
+                        if 3 >= escolha_lixeira and escolha_lixeira >= 1:
+                            menus.append(escolha_lixeira + 40) # adicionar menu na lista para listar operação do usuário no fim do programa
+                            linDetalhe(20)
+                            print()
+                            print(f'\033[35m{nomes_lixeiras[escolha_lixeira-1]:^40}\033[m\n')
+                            for k, v in dados_lixeiras[f'lixeira{escolha_lixeira}'].items():
+                                sleep(1)
+                                print(f'- \033[33m{k}\033[m: {v}')
+                            print()
+                            linDetalhe(20)
+                            sleep(4)
 
-                elif escolha_lixeira == 888: # Voltar ao menu principal
-                    menus.append(888) # adicionar menu na lista para listar operação do usuário no fim do programa
-                    voltandoMenu('Principal') 
-                    break
-                elif escolha_lixeira == 999: # Sair do aplicativo
-                    fechar = 0
-                    menus.append(999) # adicionar menu na lista para listar operação do usuário no fim do programa
-                    break
-                else: # Opção diferente das opções apresentadas
-                    print('\033[31m', f'\n\nA Opção "{escolha_lixeira}" não é válida. Por favor, digite uma opção válida.')
-                    subli(f'A Opção "{escolha_lixeira}" não é válida. Por favor, digite uma opção válida.', 0)
-                    print('\033[m')
-                    print()
+                        elif escolha_lixeira == 888: # Voltar ao menu principal
+                            menus.append(888) # adicionar menu na lista para listar operação do usuário no fim do programa
+                            voltandoMenu('Principal') 
+                            break
+                        elif escolha_lixeira == 999: # Sair do aplicativo
+                            fechar = 0
+                            menus.append(999) # adicionar menu na lista para listar operação do usuário no fim do programa
+                            break
+                        else:
+                            tratarErro(escolha_lixeira)
+                except:
+                    pass
 
         elif resp == 999: # Sair do aplicativo
             menus.append(999) # adicionar menu na lista para listar operação do usuário no fim do programa 
             fechar = 0
             perg = 0
         
-        else: # Se digitar um outro número (não é tratamento de erro)
-            print('\033[31m', f'\n\nA Opção "{resp}" não é válida. Por favor, digite uma opção válida.')
-            subli(f'A Opção "{resp}" não é válida. Por favor, digite uma opção válida.', 0)
-            print('\033[m')
-            print()
+        else:
+            tratarErro(resp)
     menu = 0 # para menu voltar a ser o Principal
     resp = 0
     
@@ -470,12 +471,7 @@ while lig == 1:
             voltandoMenu('Principal')
         elif perg == 2: 
             lig = 0
-        else:
-            print('\033[31m', f'\n\nA Opção "{perg}" não é válida. Por favor, digite uma opção válida.')
-            subli(f'A Opção "{perg}" não é válida. Por favor, digite uma opção válida.', 0)
-            print('\033[m')
-            print()
-            sleep(0.7)
+
 
 # Print final - Programa encerra
 sleep(0.5)
