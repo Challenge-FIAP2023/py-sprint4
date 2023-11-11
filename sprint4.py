@@ -374,8 +374,6 @@ while lig == 1:
             fechar = 0
             perg = 0
         
-        else:
-            tratarErro(resp)
     menu = 0 # para menu voltar a ser o Principal
     resp = 0
     
